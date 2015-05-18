@@ -54,12 +54,12 @@ class SettingsTVC: UITableViewController, UIPickerViewDelegate, UIPickerViewData
         if indexPath.row == cSettings.RowLength {
 
             fLength.becomeFirstResponder()
-            pLength.selectRow(u?.uLength == cUser.InternalLengthMeter ? 0 : 1 ?? 0, inComponent: 0, animated: false)
+            pLength.selectRow(u?.uLength == cUser.InternalLengthMetric ? 0 : 1 ?? 0, inComponent: 0, animated: false)
 
             
         } else if indexPath.row == cSettings.RowTemperature {
             
-            pLength.selectRow(u?.uLength == cUser.InternalTempCelsius ? 0 : 1 ?? 0, inComponent: 0, animated: false)
+            pTemperature.selectRow(u?.uTemperature == cUser.InternalTempCelsius ? 0 : 1 ?? 0, inComponent: 0, animated: false)
 
             fTemperature.becomeFirstResponder()
         }
@@ -70,9 +70,9 @@ class SettingsTVC: UITableViewController, UIPickerViewDelegate, UIPickerViewData
         
         let u = User.getUser()
         
-        lLength.text = u?.uLength == cUser.InternalLengthMeter ? "Meters" : "Kilometers" ?? "Meters"
+        lLength.text = u?.uLength == cUser.InternalLengthMetric ? "Metric" : "Imperial" ?? "-"
         
-        lTemperature.text = u?.uTemperature == cUser.InternalTempCelsius ? "Celsius" : "Kelvin" ?? "Celsius"
+        lTemperature.text = u?.uTemperature == cUser.InternalTempCelsius ? "Celsius" : "Kelvin" ?? "-"
     }
     
     //MARK: UIPickerViewDataSource
@@ -92,9 +92,9 @@ class SettingsTVC: UITableViewController, UIPickerViewDelegate, UIPickerViewData
             
             if row == 0 {
                 
-                return "Meters"
+                return "Metric"
             } else if row == 1 {
-                return "Kilometers"
+                return "Imperial"
             }
             
         } else if pickerView == pTemperature {
@@ -117,9 +117,9 @@ class SettingsTVC: UITableViewController, UIPickerViewDelegate, UIPickerViewData
         if pickerView == pLength {
             
             if row == 0 {
-                u?.uLength = cUser.InternalLengthMeter
+                u?.uLength = cUser.InternalLengthMetric
             } else if row == 1 {
-                u?.uLength = cUser.InternalLengthKilometer
+                u?.uLength = cUser.InternalLengthImperial
 
             }
             
@@ -127,14 +127,14 @@ class SettingsTVC: UITableViewController, UIPickerViewDelegate, UIPickerViewData
             if row == 0 {
                 u?.uTemperature = cUser.InternalTempCelsius
 
-            } else  if row == 1{
+            } else if row == 1{
                 u?.uTemperature = cUser.InternalTempKelvin
 
             }
         }
         Helper.saveContext()
         updateUI()
-        NSNotificationCenter.defaultCenter().postNotificationName("ChangeTemperatureUnitNotification", object: self)
+        NSNotificationCenter.defaultCenter().postNotificationName(cGeneral.ChangeUnitNotification, object: self)
         
     }
 

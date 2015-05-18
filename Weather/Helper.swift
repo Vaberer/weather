@@ -9,6 +9,12 @@
 import UIKit
 import CoreData
 
+struct cGeneral {
+    
+    static let ChangeUnitNotification = "ChangeUnitNotification"
+    static let ChangeSelectedCity = "ChangeSelectedCity"
+}
+
 class Helper {
     
     static func showAlertWithText(text: String, sender: AnyObject) {
@@ -42,6 +48,23 @@ class Helper {
         return "-"
     }
     
+    static func getSpeedToShow(speed: Double) -> String {
+        
+        let u = User.getUser()
+        if let u = u {
+            if u.uLength == cUser.InternalLengthImperial {
+                let newVal = speed * 3.6 * 0.62
+                return String(format:"%.1f", round(newVal * 100) / 100) + " mps"
+            } else if u.uLength == cUser.InternalLengthMetric {
+                let newVal = speed  * 3.6
+
+                return String(format:"%.1f", round(newVal * 100) / 100) + " km/h"
+            }
+        }
+        return "-"
+    }
+    
+    
     
     static func getWindDirectionToShowFromDegree(degree: Double) -> String {
         
@@ -49,8 +72,53 @@ class Helper {
         "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
         
         let i = (degree + 11.25)/22.5;
-        return d[Int(i) % 16];
+        return d[Int(round(i)) % 16];
         
+    }
+    
+    static func getImageToShow(id: Int?) -> UIImage {
+        
+        if let id = id {
+            
+            switch id {
+            case 200...232://Thunderstorm
+                return UIImage(named: "CL")!
+            case 300...321:
+                return UIImage(named: "CR")!
+            case 500...531:
+                return UIImage(named: "CR")!
+            case 600...622://snow
+                return UIImage(named: "CR")!
+            case 701...781://Atmosphere
+                return UIImage(named: "CR")!
+            case 800...801://Clouds - clear sky, few clouds
+                return UIImage(named: "Sun")!
+            case 802...804://Clouds - clear sky
+                return UIImage(named: "CS")!
+            case 900...906://Extreme
+                return UIImage()
+            case 951...962://Additional
+                return UIImage()
+                
+                
+            default:
+                return UIImage()
+                
+            }
+
+        }
+        
+        return UIImage()
+        
+        
+    }
+    
+    static func getDayOfWeek()->Int {
+        let todayDate = NSDate()
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: todayDate)
+        let weekDay = myComponents.weekday
+        return weekDay
     }
     
     
@@ -58,7 +126,7 @@ class Helper {
         
         let c = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
         var u =  NSEntityDescription.insertNewObjectForEntityForName(cUser.User, inManagedObjectContext: c) as! User
-        u.uLength = cUser.InternalLengthMeter
+        u.uLength = cUser.InternalLengthMetric
         u.uTemperature = cUser.InternalTempCelsius
         u.uChosenLocationID =  cUser.ChosenLocationCurrent
         saveContext()

@@ -13,8 +13,8 @@ import UIKit
 struct cUser {
 
     static let User = "User"
-    static let InternalLengthMeter = "m"
-    static let InternalLengthKilometer = "km"
+    static let InternalLengthMetric = "m"
+    static let InternalLengthImperial = "i"
     static let InternalTempCelsius = "c"
     static let InternalTempKelvin = "k"
     static let ChosenLocationCurrent = -1

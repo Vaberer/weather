@@ -21,9 +21,12 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var lPressure: UILabel!
     @IBOutlet weak var lWIndSPeed: UILabel!
     @IBOutlet weak var lWindDirection: UILabel!
+    @IBOutlet weak var iWeather: UIImageView!
     
+    var tSpeedInMPS: Double?
     var tTemperatureInKelvin: Double?
     var tWeatherDesc: String?
+    var canUpdateUI = true
     
     
     let locationManager = CLLocationManager()
@@ -31,7 +34,11 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "tempUnitChanged", name: "ChangeTemperatureUnitNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitChanged", name: cGeneral.ChangeUnitNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectedCityChanged", name: cGeneral.ChangeSelectedCity, object: nil)
+        
+        
         bShare.enabled = false
         lPressure.text = ""
         lRainAmount.text = ""
@@ -43,7 +50,7 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
         iCurrent.hidden = User.getUser()?.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent ? false : true ?? true
         
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         CLLocationManager.authorizationStatus()
@@ -75,75 +82,112 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     
     func updateUI() {
         
-
         
+        var url = ""
         if User.getUser()?.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent {
             
-            
-            let url = "http://api.openweathermap.org/data/2.5/weather?lat=" + myLocation!.coordinate.latitude.description + "&lon=" + myLocation!.coordinate.longitude.description
-            Alamofire.request(.GET, url).responseJSON() {
-                (_, _, JSON, e) in
-                println(JSON)
-                println(e)
-                if e == nil {
-                    self.bShare.enabled = true
-                    
-                    let city = (JSON as? [NSObject: AnyObject])?["name"] as? String ?? "-"
-                    let country = (JSON as? [NSObject: AnyObject])?["sys"]?["country"] as? String ?? "-"
-                    let pressure = (JSON as? [NSObject: AnyObject])?["main"]?["pressure"] as? Double ?? 0
-                    let rainPercentage = (JSON as? [NSObject: AnyObject])?["clouds"]?["all"] as? Int ?? 0
-                    
-                    
-                    let tempK = (JSON as? [NSObject: AnyObject])?["main"]?["temp"] as? Double ?? 0
-                    self.tTemperatureInKelvin = tempK
-                    
-                    
-                    var weatherDes =  (JSON as? [NSObject: AnyObject])?["weather"] as? [[NSObject: AnyObject]]
-                    let tempDescription = weatherDes?.first?["main"] as? String ?? "-"
-                    self.tWeatherDesc = tempDescription
-                    
-                    let windDeg = (JSON as? [NSObject: AnyObject])?["wind"]?["deg"] as? Double ?? 0
-                    let windSpeed = (JSON as? [NSObject: AnyObject])?["wind"]?["speed"] as? Double ?? 0
-                    
-                    
-                    self.lRainPercentage.text = rainPercentage.description + "%"
-                    self.lPressure.text = String(format: "%.0f", pressure) + " hPa"
-                    self.lLocation.text = city + ", " + country
-                    self.lDescription.text = Helper.getTemperatureToShow(tempK) + " | " + tempDescription
-                    self.lWIndSPeed.text = String(format: "%.0f", windSpeed) + " km/h"
-                    self.lWindDirection.text = Helper.getWindDirectionToShowFromDegree(windDeg)
-                    
-                } else {
-                    
-                    Helper .showAlertWithText("Bad things happened", sender: self)
-                }
-            }
-            
-        //show custom city weather info
+            url = "http://api.openweathermap.org/data/2.5/weather?lat=" + myLocation!.coordinate.latitude.description + "&lon=" + myLocation!.coordinate.longitude.description
         } else {
             
+            
+            
+            url  = "http://api.openweathermap.org/data/2.5/weather?id=" + (User.getUser()?.uChosenLocationID.stringValue ?? "")
+            
         }
+        
+        println(url)
+        
+        Alamofire.request(.GET, url).responseJSON() {
+            (_, _, JSON, e) in
+            println(JSON)
+            println(e)
+            if e == nil {
+                self.bShare.enabled = true
+                
+                
+                let city = (JSON as? [NSObject: AnyObject])?["name"] as? String ?? "-"
+                let country = (JSON as? [NSObject: AnyObject])?["sys"]?["country"] as? String ?? "-"
+                let pressure = (JSON as? [NSObject: AnyObject])?["main"]?["pressure"] as? Double ?? 0
+                let rainPercentage = (JSON as? [NSObject: AnyObject])?["clouds"]?["all"] as? Int ?? 0
+                
+                
+                let tempK = (JSON as? [NSObject: AnyObject])?["main"]?["temp"] as? Double ?? 0
+                self.tTemperatureInKelvin = tempK
+                
+                
+                var weatherDes =  (JSON as? [NSObject: AnyObject])?["weather"] as? [[NSObject: AnyObject]]
+                let tempDescription = weatherDes?.first?["main"] as? String ?? "-"
+                self.tWeatherDesc = tempDescription
+                
+                let imageID =  weatherDes?.first?["id"] as? Int
+                
+                let windDeg = (JSON as? [NSObject: AnyObject])?["wind"]?["deg"] as? Double ?? 0
+                let windSpeed = (JSON as? [NSObject: AnyObject])?["wind"]?["speed"] as? Double ?? 0
+                self.tSpeedInMPS = windSpeed
+                
+                self.lRainPercentage.text = rainPercentage.description + "%"
+                self.lPressure.text = String(format: "%.0f", pressure) + " hPa"
+                self.lLocation.text = city + ", " + country
+                self.lDescription.text = Helper.getTemperatureToShow(tempK) + " | " + tempDescription
+                self.lWIndSPeed.text = Helper.getSpeedToShow(windSpeed)
+                self.lWindDirection.text = Helper.getWindDirectionToShowFromDegree(windDeg)
+                
+                self.iWeather.image = Helper.getImageToShow(imageID)
+                
+                var u = User.getUser()
+                u?.uChosenLocationByName = city
+                u?.uCurrentLatitude = self.myLocation?.coordinate.latitude ?? 0
+                u?.uCurrentLongitude = self.myLocation?.coordinate.longitude ?? 0
+                Helper.saveContext()
+            } else {
+                
+                Helper .showAlertWithText("Bad things happened", sender: self)
+            }
+        }
+        
+        
         
         
     }
     
-    func tempUnitChanged() {
+    func unitChanged() {
         
         if let t = tTemperatureInKelvin, d = tWeatherDesc {
             
             lDescription.text = Helper.getTemperatureToShow(t) + " | " + d
-
+            
+        }
+        
+        if let s = tSpeedInMPS {
+            
+            lWIndSPeed.text = Helper.getSpeedToShow(s)
         }
     }
+    
+    func selectedCityChanged() {
+        
+        if User.getUser()?.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent {
+            
+            locationManager.startUpdatingLocation()
+            
+        } else {
+            
+            updateUI()
+        }
+    }
+    
     
     //MARK: CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         
-        if locations.count > 0 {
+        if canUpdateUI == true && locations.count > 0 {
             
+            canUpdateUI = false
             myLocation = locations.first as? CLLocation
             manager.stopUpdatingLocation()
             updateUI()
         }
     }
+    
+    
 }
