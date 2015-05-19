@@ -17,6 +17,7 @@
 		4E10F5271B066BC3001F590C /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E10F5221B066BC3001F590C /* ProximaNova-Light.otf */; };
 		4E10F5281B066BC3001F590C /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E10F5231B066BC3001F590C /* ProximaNova-Regular.otf */; };
 		4E10F5291B066BC3001F590C /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E10F5241B066BC3001F590C /* ProximaNova-Semibold.otf */; };
+		4E235EE91B0B36B500EC6B6E /* ForecastTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E235EE81B0B36B500EC6B6E /* ForecastTVC.swift */; };
 		4E308F741B02079600A07B7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E308F731B02079600A07B7E /* AppDelegate.swift */; };
 		4E308F771B02079600A07B7E /* Weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E308F751B02079600A07B7E /* Weather.xcdatamodeld */; };
 		4E308F7C1B02079600A07B7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E308F7A1B02079600A07B7E /* Main.storyboard */; };
@@ -25,7 +26,6 @@
 		4E5E0ECE1B020D8600394D86 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E5E0ECD1B020D8600394D86 /* Images.xcassets */; };
 		4E98B53A1B024D6C00A64923 /* TodayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98B5391B024D6C00A64923 /* TodayVC.swift */; };
 		4E98B53C1B02507E00A64923 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98B53B1B02507E00A64923 /* SettingsTVC.swift */; };
-		4E98B53E1B0250AA00A64923 /* ForecastTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98B53D1B0250AA00A64923 /* ForecastTVC.swift */; };
 		4E98B5421B0268EF00A64923 /* LocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98B5411B0268EF00A64923 /* LocationVC.swift */; };
 		4E98B5441B026E7E00A64923 /* AddLocationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98B5431B026E7E00A64923 /* AddLocationTVC.swift */; };
 		4E98B5481B02710300A64923 /* User+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E98B5471B02710300A64923 /* User+Methods.swift */; };
@@ -57,6 +57,7 @@
 		4E10F5221B066BC3001F590C /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
 		4E10F5231B066BC3001F590C /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		4E10F5241B066BC3001F590C /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
+		4E235EE81B0B36B500EC6B6E /* ForecastTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTVC.swift; sourceTree = "<group>"; };
 		4E308F6E1B02079600A07B7E /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E308F721B02079600A07B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E308F731B02079600A07B7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +70,6 @@
 		4E5E0ECD1B020D8600394D86 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4E98B5391B024D6C00A64923 /* TodayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayVC.swift; sourceTree = "<group>"; };
 		4E98B53B1B02507E00A64923 /* SettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
-		4E98B53D1B0250AA00A64923 /* ForecastTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForecastTVC.swift; path = ../ForecastTVC.swift; sourceTree = "<group>"; };
 		4E98B5411B0268EF00A64923 /* LocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationVC.swift; sourceTree = "<group>"; };
 		4E98B5431B026E7E00A64923 /* AddLocationTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationTVC.swift; sourceTree = "<group>"; };
 		4E98B5471B02710300A64923 /* User+Methods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+Methods.swift"; sourceTree = "<group>"; };
@@ -203,10 +203,10 @@
 		4E5E0ED11B020DE000394D86 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4E235EE81B0B36B500EC6B6E /* ForecastTVC.swift */,
 				4E98B5391B024D6C00A64923 /* TodayVC.swift */,
 				4E98B5431B026E7E00A64923 /* AddLocationTVC.swift */,
 				4E98B5411B0268EF00A64923 /* LocationVC.swift */,
-				4E98B53D1B0250AA00A64923 /* ForecastTVC.swift */,
 				4E98B53B1B02507E00A64923 /* SettingsTVC.swift */,
 				4E308F731B02079600A07B7E /* AppDelegate.swift */,
 			);
@@ -379,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E235EE91B0B36B500EC6B6E /* ForecastTVC.swift in Sources */,
 				4E98B54A1B027CEC00A64923 /* Helper.swift in Sources */,
 				4E98B5421B0268EF00A64923 /* LocationVC.swift in Sources */,
 				4E10F51A1B05F1E3001F590C /* SavedCity.swift in Sources */,
@@ -388,7 +389,6 @@
 				4E10F51E1B05F8A3001F590C /* LocationCell.swift in Sources */,
 				4E10F5141B0500BA001F590C /* ForecastCell.swift in Sources */,
 				4E9BC4151B09D6C7007CE4AA /* User.swift in Sources */,
-				4E98B53E1B0250AA00A64923 /* ForecastTVC.swift in Sources */,
 				4E98B53A1B024D6C00A64923 /* TodayVC.swift in Sources */,
 				4E98B53C1B02507E00A64923 /* SettingsTVC.swift in Sources */,
 				4E98B5441B026E7E00A64923 /* AddLocationTVC.swift in Sources */,
@@ -470,7 +470,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -509,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
