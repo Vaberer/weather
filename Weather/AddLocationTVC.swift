@@ -15,7 +15,6 @@ struct cPositions {
 }
 
 struct CityDetail {
-    
     var city = ""
     var country = ""
     var idCity = -1
@@ -27,7 +26,7 @@ class AddLocationTVC: UITableViewController, UISearchResultsUpdating {
     var data = [CityDetail]()
     var filteredData = [CityDetail]()
     var resultSearchController = UISearchController()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         activity.startAnimating()
@@ -40,27 +39,23 @@ class AddLocationTVC: UITableViewController, UISearchResultsUpdating {
             controller.searchBar.barTintColor = UIColor.blueColor()
             
             self.tableView.tableHeaderView = controller.searchBar
-            
             return controller
         })()
         
-
+        //difficult operations go to the background thread
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
             let path = NSBundle.mainBundle().pathForResource("countries", ofType: "txt")
             if let content = String(contentsOfFile:path!, encoding: NSUTF8StringEncoding, error: nil) {
-                
+                //parsing file
                 var temp = content.componentsSeparatedByString("\n")
                 temp.removeAtIndex(0)
                 for  line in  temp{
                     
                     let lineArray = line.componentsSeparatedByString("\t")
-                    
-                    
                     self.data.append( CityDetail(city: lineArray[cPositions.City], country: lineArray[cPositions.Country], idCity: lineArray[cPositions.ID].toInt()!) )
                 }
             }
-
             dispatch_async(dispatch_get_main_queue(), {
                 self.activity.stopAnimating()
                 self.tableView.reloadData()
@@ -90,33 +85,24 @@ class AddLocationTVC: UITableViewController, UISearchResultsUpdating {
             return self.filteredData.count
         }
         else {
-        return data.count
+            return data.count
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
-        
         let c = tableView.dequeueReusableCellWithIdentifier("AddLocationCell") as! UITableViewCell
-
         if (self.resultSearchController.active) {
             
             let record =  filteredData[indexPath.row]
-
             c.textLabel?.text = record.city + ", " + record.country
             
         } else {
             
             let record =  data[indexPath.row]
             c.textLabel!.text = record.city + ", " + record.city
-            
         }
-       
         return c
-            
-        
-        
     }
     
     //MARK: Helpers
@@ -124,20 +110,15 @@ class AddLocationTVC: UITableViewController, UISearchResultsUpdating {
         // Filter the array using the filter method
         filteredData = data.filter({ (line: CityDetail) -> Bool in
             
-            
             return line.city.lowercaseString.rangeOfString(searchText) != nil
         })
-    
+        
     }
     
     //MARK: Search
-    
     func updateSearchResultsForSearchController(searchController: UISearchController)
     {
         filteredData.removeAll(keepCapacity: false)
-        
-        
-        
         filterContentForSearchText(searchController.searchBar.text.lowercaseString)
         self.tableView.reloadData()
     }

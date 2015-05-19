@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 
 struct cUser {
-
+    
     static let User = "User"
     static let InternalLengthMetric = "m"
     static let InternalLengthImperial = "i"
@@ -20,7 +20,8 @@ struct cUser {
     static let ChosenLocationCurrent = -1
 }
 extension User {
-
+    
+    
     static func getUser() -> User? {
         
         let c = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
@@ -37,17 +38,18 @@ extension User {
         
     }
     
-
-     func debug() {
+    
+    
+    
+    func debug() {
         
         println("Len: \(self.uLength)")
         println("Temp: \(self.uTemperature)")
         println("ChosenLocID: \(self.uChosenLocationID)")
         println("ChosenLon: \(self.uCurrentLongitude)")
         println("CurLat: \(self.uCurrentLatitude)")
-        var curLoc = uChosenLocationByName ?? "empty"
-        println("CurLoc: \(curLoc)")
-        
+        var curLoc = uChosenLocationName ?? "empty"
+        println("Chosen Location: \(curLoc)")
     }
     
     

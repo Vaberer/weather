@@ -9,11 +9,10 @@
 import Foundation
 import UIKit
 import CoreData
+
 struct cSavedCity {
-    
     static let SavedCity = "SavedCity"
     static let dbID = "sID"
-   
 }
 
 extension SavedCity {
@@ -59,7 +58,6 @@ extension SavedCity {
         savedCity?.sCityName = city
         savedCity?.sCountry = country
         savedCity?.sID = idCity
-        
         Helper.saveContext()
         return savedCity
         
@@ -70,6 +68,6 @@ extension SavedCity {
         let c = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext!
         c.deleteObject(city)
     }
-
+    
     
 }

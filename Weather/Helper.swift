@@ -13,6 +13,14 @@ struct cGeneral {
     
     static let ChangeUnitNotification = "ChangeUnitNotification"
     static let ChangeSelectedCity = "ChangeSelectedCity"
+    static let NeedReloadForecastTVC = "NeedReloadForecastTVC"
+    static let appBlackColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+}
+
+struct cForecast {
+    static let kTemp = "temp"
+    static let kDesc = "desc"
+    static let kIDWeather = "idImage"
 }
 
 class Helper {
@@ -20,18 +28,14 @@ class Helper {
     static func showAlertWithText(text: String, sender: AnyObject) {
         
         let a = UIAlertController(title: "App says:", message: text ?? "", preferredStyle: .Alert)
-        
-        let ok = UIAlertAction(title: "OK", style: .Default, handler: { (ok) -> Void in
-        })
-        
+        let ok = UIAlertAction(title: "OK", style: .Default, handler: { (ok) -> Void in})
         a.addAction(ok)
-        
         if let s = sender as? UIViewController {
             sender.presentViewController(a, animated: true, completion: nil)
         }
     }
     
-
+    
     static func getTemperatureToShow(temp: Double) -> String {
         
         let u = User.getUser()
@@ -39,10 +43,10 @@ class Helper {
             if u.uTemperature == cUser.InternalTempCelsius {
                 
                 let newVal = temp - 273.15
-                return String(format:"%.0f", round(newVal)) + " °C"
+                return String(format:"%.0f", round(newVal)) + "°C"
             } else if u.uTemperature == cUser.InternalTempKelvin {
                 
-                return String(format:"%.0f", round(temp)) + " K"
+                return String(format:"%.0f", round(temp)) + "K"
             }
         }
         return "-"
@@ -57,7 +61,7 @@ class Helper {
                 return String(format:"%.1f", round(newVal * 100) / 100) + " mps"
             } else if u.uLength == cUser.InternalLengthMetric {
                 let newVal = speed  * 3.6
-
+                
                 return String(format:"%.1f", round(newVal * 100) / 100) + " km/h"
             }
         }
@@ -69,17 +73,14 @@ class Helper {
     static func getWindDirectionToShowFromDegree(degree: Double) -> String {
         
         let d = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
-        "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-        
+            "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
         let i = (degree + 11.25)/22.5;
         return d[Int(round(i)) % 16];
-        
     }
     
     static func getImageToShow(id: Int?) -> UIImage {
         
         if let id = id {
-            
             switch id {
             case 200...232://Thunderstorm
                 return UIImage(named: "CL")!
@@ -99,21 +100,18 @@ class Helper {
                 return UIImage()
             case 951...962://Additional
                 return UIImage()
-                
-                
             default:
                 return UIImage()
                 
             }
-
         }
-        
         return UIImage()
         
         
     }
     
     static func getDayOfWeek()->Int {
+        
         let todayDate = NSDate()
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: todayDate)
@@ -130,11 +128,12 @@ class Helper {
         u.uTemperature = cUser.InternalTempCelsius
         u.uChosenLocationID =  cUser.ChosenLocationCurrent
         saveContext()
-        
-        
     }
     
     static func saveContext() {
+        
         (UIApplication.sharedApplication().delegate as! AppDelegate).saveContext()
     }
+    
+    
 }

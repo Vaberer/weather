@@ -22,27 +22,25 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var lWIndSPeed: UILabel!
     @IBOutlet weak var lWindDirection: UILabel!
     @IBOutlet weak var iWeather: UIImageView!
-    
-    var tSpeedInMPS: Double?
-    var tTemperatureInKelvin: Double?
-    var tWeatherDesc: String?
+    let locationManager = CLLocationManager()
+
+    ///Prevent downloading current weather more times
     var canUpdateUI = true
     
-    
-    let locationManager = CLLocationManager()
-    var myLocation: CLLocation?
+    ///Reload Data after becoming active but not first time
+    var appFirstTimeLaunched = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitChanged", name: cGeneral.ChangeUnitNotification, object: nil)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectedCityChanged", name: cGeneral.ChangeSelectedCity, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appBecomeActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         
         bShare.enabled = false
+        lLocation.text = "Getting location..."
         lPressure.text = ""
         lRainAmount.text = ""
-        lLocation.text = "Getting location..."
         lDescription.text = ""
         lRainPercentage.text = ""
         lWindDirection.text = ""
@@ -58,14 +56,25 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
         if CLLocationManager.authorizationStatus() == .Denied{
             
             let url = NSURL(string: UIApplicationOpenSettingsURLString)
-            
             if let url = url {
                 UIApplication.sharedApplication().openURL(url)
             }
+            lLocation.text = "Location not determined"
         }
+    }
+    
+    func appBecomeActive() {
         
-        
-        
+        if appFirstTimeLaunched == true {
+            appFirstTimeLaunched = false
+            return
+        }
+        canUpdateUI = true
+        if User.getUser()?.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent {
+            locationManager.startUpdatingLocation()
+        } else {
+            updateUI()
+        }
         
     }
     
@@ -74,7 +83,6 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
         let textToShare = "The weather forecast is " + lDescription.text! + ". Info by STRV Weather App."
         let objectsToShare = [textToShare]
         let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        
         self.presentViewController(activityVC, animated: true, completion: nil)
         
         
@@ -82,28 +90,18 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     
     func updateUI() {
         
-        
         var url = ""
-        if User.getUser()?.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent {
-            
-            url = "http://api.openweathermap.org/data/2.5/weather?lat=" + myLocation!.coordinate.latitude.description + "&lon=" + myLocation!.coordinate.longitude.description
+        if  let u = User.getUser() where u.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent {
+            url = "http://api.openweathermap.org/data/2.5/weather?lat=" + u.uCurrentLatitude.description + "&lon=" + u.uCurrentLongitude.description
         } else {
-            
-            
-            
             url  = "http://api.openweathermap.org/data/2.5/weather?id=" + (User.getUser()?.uChosenLocationID.stringValue ?? "")
-            
         }
-        
-        println(url)
         
         Alamofire.request(.GET, url).responseJSON() {
             (_, _, JSON, e) in
-            println(JSON)
-            println(e)
             if e == nil {
                 self.bShare.enabled = true
-                
+                var u = User.getUser()
                 
                 let city = (JSON as? [NSObject: AnyObject])?["name"] as? String ?? "-"
                 let country = (JSON as? [NSObject: AnyObject])?["sys"]?["country"] as? String ?? "-"
@@ -112,18 +110,19 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
                 
                 
                 let tempK = (JSON as? [NSObject: AnyObject])?["main"]?["temp"] as? Double ?? 0
-                self.tTemperatureInKelvin = tempK
+                u?.uCurrentTemperature = tempK
                 
                 
                 var weatherDes =  (JSON as? [NSObject: AnyObject])?["weather"] as? [[NSObject: AnyObject]]
                 let tempDescription = weatherDes?.first?["main"] as? String ?? "-"
-                self.tWeatherDesc = tempDescription
+                u?.uCurrentWeatherDesc = tempDescription
                 
                 let imageID =  weatherDes?.first?["id"] as? Int
+                u?.uCurrentWeatherImageID = imageID ?? 0
                 
                 let windDeg = (JSON as? [NSObject: AnyObject])?["wind"]?["deg"] as? Double ?? 0
                 let windSpeed = (JSON as? [NSObject: AnyObject])?["wind"]?["speed"] as? Double ?? 0
-                self.tSpeedInMPS = windSpeed
+                u?.uCurrentSpeed = windSpeed
                 
                 self.lRainPercentage.text = rainPercentage.description + "%"
                 self.lPressure.text = String(format: "%.0f", pressure) + " hPa"
@@ -134,44 +133,36 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
                 
                 self.iWeather.image = Helper.getImageToShow(imageID)
                 
-                var u = User.getUser()
-                u?.uChosenLocationByName = city
-                u?.uCurrentLatitude = self.myLocation?.coordinate.latitude ?? 0
-                u?.uCurrentLongitude = self.myLocation?.coordinate.longitude ?? 0
+                u?.uChosenLocationName = city
                 Helper.saveContext()
+                //u?.debug()
+                NSNotificationCenter.defaultCenter().postNotificationName(cGeneral.NeedReloadForecastTVC, object: nil)
+                
             } else {
                 
-                Helper .showAlertWithText("Bad things happened", sender: self)
+                Helper .showAlertWithText("Can't determine weather.", sender: self)
+                self.lLocation.text = "Not determined"
             }
         }
-        
-        
-        
         
     }
     
     func unitChanged() {
         
-        if let t = tTemperatureInKelvin, d = tWeatherDesc {
+        if let u = User.getUser() {
             
-            lDescription.text = Helper.getTemperatureToShow(t) + " | " + d
-            
+            lDescription.text = Helper.getTemperatureToShow(u.uCurrentTemperature.doubleValue) + " | " + u.uCurrentWeatherDesc
+            lWIndSPeed.text = Helper.getSpeedToShow(u.uCurrentSpeed.doubleValue)
         }
         
-        if let s = tSpeedInMPS {
-            
-            lWIndSPeed.text = Helper.getSpeedToShow(s)
-        }
     }
     
     func selectedCityChanged() {
         
+        canUpdateUI = true
         if User.getUser()?.uChosenLocationID.integerValue == cUser.ChosenLocationCurrent {
-            
             locationManager.startUpdatingLocation()
-            
         } else {
-            
             updateUI()
         }
     }
@@ -183,11 +174,13 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
         if canUpdateUI == true && locations.count > 0 {
             
             canUpdateUI = false
-            myLocation = locations.first as? CLLocation
             manager.stopUpdatingLocation()
+            var u = User.getUser()
+            u?.uCurrentLatitude = (locations.first as? CLLocation)?.coordinate.latitude ?? 0
+            u?.uCurrentLongitude = (locations.first as? CLLocation)?.coordinate.longitude ?? 0
+            Helper.saveContext()
             updateUI()
         }
     }
-    
     
 }
