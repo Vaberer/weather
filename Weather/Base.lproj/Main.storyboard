@@ -289,8 +289,11 @@
                                     <constraint firstAttribute="width" secondItem="LtX-uJ-b0a" secondAttribute="height" multiplier="1:1" id="xXE-p9-ZPy"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="57%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKI-rL-usz">
-                                <rect key="frame" x="201" y="359" width="29" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="57%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EKI-rL-usz">
+                                <rect key="frame" x="186" y="359" width="60" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="LoY-XS-UMg"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -302,8 +305,11 @@
                                     <constraint firstAttribute="width" constant="25" id="kyk-2U-ofi"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2mm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4j-Fy-rxC">
-                                <rect key="frame" x="284" y="359" width="34" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2mm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q4j-Fy-rxC">
+                                <rect key="frame" x="271" y="359" width="60" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="dOk-64-VxU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -315,8 +321,11 @@
                                     <constraint firstAttribute="width" constant="25" id="jvh-4I-2eS"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1018 hPa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hF-8F-6M0">
-                                <rect key="frame" x="356" y="359" width="59" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1018 hPa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6hF-8F-6M0">
+                                <rect key="frame" x="356" y="359" width="60" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="AYb-LB-jYL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -328,8 +337,11 @@
                                     <constraint firstAttribute="width" constant="25" id="s5Y-4C-mtA"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.8 km/h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsk-MI-zD2">
-                                <rect key="frame" x="229" y="442" width="57" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.8 km/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Zsk-MI-zD2">
+                                <rect key="frame" x="228" y="442" width="60" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Ezp-A5-B6k"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -341,8 +353,11 @@
                                     <constraint firstAttribute="width" constant="25" id="NOu-Ti-kqB"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WSW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlH-76-yuB">
-                                <rect key="frame" x="325" y="442" width="36" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WSW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zlH-76-yuB">
+                                <rect key="frame" x="313" y="442" width="60" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="TGy-eh-DSY"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -824,6 +839,6 @@
         <image name="WInd_Big" width="86" height="55"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RH6-Jn-cTX"/>
+        <segue reference="sKX-RC-i1o"/>
     </inferredMetricsTieBreakers>
 </document>
