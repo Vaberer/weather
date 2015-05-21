@@ -24,6 +24,9 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var iWeather: UIImageView!
     let locationManager = CLLocationManager()
 
+    @IBOutlet weak var cIWeatherWidth: NSLayoutConstraint!
+    @IBOutlet weak var cRainTop: NSLayoutConstraint!
+    @IBOutlet weak var cWindTop: NSLayoutConstraint!
     ///Prevent downloading current weather more times
     var canUpdateUI = true
     
@@ -32,6 +35,14 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (UIScreen.mainScreen().bounds.size.height == 480) {
+            cIWeatherWidth.constant -= 40
+            cRainTop.constant -= 10
+            cWindTop.constant -= 10
+        }
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitChanged", name: cGeneral.ChangeUnitNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectedCityChanged", name: cGeneral.ChangeSelectedCity, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appBecomeActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -51,7 +62,6 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        CLLocationManager.authorizationStatus()
         
         if CLLocationManager.authorizationStatus() == .Denied{
             
@@ -60,6 +70,7 @@ class TodayVC: UIViewController, CLLocationManagerDelegate {
                 UIApplication.sharedApplication().openURL(url)
             }
             lLocation.text = "Location not determined"
+            
         }
     }
     
