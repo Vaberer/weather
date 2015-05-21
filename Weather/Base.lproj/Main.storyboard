@@ -542,8 +542,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OOu-ZM-bcs" id="bft-BP-AHc">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit of length" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8M-JO-peN">
-                                                    <rect key="frame" x="8" y="13" width="101" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Unit of length" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8M-JO-peN">
+                                                    <rect key="frame" x="8" y="13" width="529" height="17"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -570,6 +570,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="nxr-Te-xos" secondAttribute="centerY" id="Pcz-SW-9UX"/>
                                                 <constraint firstItem="nxr-Te-xos" firstAttribute="trailing" secondItem="bft-BP-AHc" secondAttribute="trailingMargin" id="W0B-UT-8b7"/>
                                                 <constraint firstAttribute="centerY" secondItem="D8M-JO-peN" secondAttribute="centerY" id="jov-LM-7iz"/>
+                                                <constraint firstItem="nxr-Te-xos" firstAttribute="leading" secondItem="D8M-JO-peN" secondAttribute="trailing" constant="8" symbolic="YES" id="o0R-8C-m3V"/>
                                                 <constraint firstItem="2kc-3b-zyB" firstAttribute="top" secondItem="bft-BP-AHc" secondAttribute="topMargin" constant="-8" id="xBC-AC-7YT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -579,8 +580,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7g-vn-kNM" id="PB9-nn-dg7">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Units of temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2K6-eL-bep">
-                                                    <rect key="frame" x="8" y="13" width="154" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Units of temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2K6-eL-bep">
+                                                    <rect key="frame" x="8" y="13" width="522" height="17"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -608,6 +609,7 @@
                                                 <constraint firstItem="2K6-eL-bep" firstAttribute="leading" secondItem="PB9-nn-dg7" secondAttribute="leadingMargin" id="Ky2-ng-hSm"/>
                                                 <constraint firstItem="C6M-yt-AH6" firstAttribute="trailing" secondItem="PB9-nn-dg7" secondAttribute="trailingMargin" id="NEu-6G-3hJ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="3B8-g0-UtC" secondAttribute="trailing" constant="-8" id="a3b-fy-GMv"/>
+                                                <constraint firstItem="C6M-yt-AH6" firstAttribute="leading" secondItem="2K6-eL-bep" secondAttribute="trailing" constant="8" symbolic="YES" id="kWK-68-eI4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -822,6 +824,6 @@
         <image name="WInd_Big" width="86" height="55"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sKX-RC-i1o"/>
+        <segue reference="RH6-Jn-cTX"/>
     </inferredMetricsTieBreakers>
 </document>
